@@ -1,0 +1,23 @@
+# https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/cron-job-v1/
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: a-cron-job 
+  namespace: my-namespace 
+spec:
+  schedule: "0 1 * * 1"
+  concurrencyPolicy: Forbid
+  jobTemplate: # https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/job-v1/#JobSpec
+    spec:
+      template:
+        spec: # https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec
+          containers:
+          - name: cron-job
+            image: image:latest
+            imagePullPolicy: Always
+            command: ["/bin/sh"]
+            args:
+              - "-c"
+              - "echo 'hello'"
+          restartPolicy: Never
+
