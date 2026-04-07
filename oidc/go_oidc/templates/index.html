@@ -1,0 +1,12 @@
+{{define "title"}}Home {{end}}
+
+{{define "content"}}
+<h2>Login</h2>
+{{if .authUrl}}
+<a href="{{ .authUrl }}">Login with SSO</a>
+{{end}}
+
+{{if .user}}
+ {{ .user }}
+{{end}}
+{{end}}
